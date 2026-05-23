@@ -1,6 +1,6 @@
 # Xtreak
 #### Video Demo:  https://youtu.be/mx_gTy3m03U
-#### Description:
+### Description:
 ##### What is Xtreak?:
 
 Xtreak is a simple productivity app that helps you track your tasks
@@ -62,59 +62,3 @@ sort your tasks as you want. Your custom preference will be saved.
 
 I added this custom sort option because I thought it's important to let users sort their tasks as they wish.
 Because one task can be more important to them despite the task's name or date of creation.
-
-##### My creative choices:
-
-I decided to go with the soft black and orangered theme with soft white color for text.
-I chose this theme because I didn't want to hurt user's eyes with pure black or pure white.
-And for me, orangered color feels energizing.
-
-Also I gave Xs the bright red color to make it look really good and attractive.
-
-I got the idea for this app from the Seinfeld Strategy AKA "Don't break the chain technique."
-It works like this: You pick a task you want to do daily, get a physical calendar and a red marker, then as you complete that task,
-you mark a big, bright, red X on that date. If you do the task daily, a chain will be created with those Xs.
-Your goal is do complete that task daily and don't break the chain.
-
-By looking at that big, red chain of Xs, you get motivation, and so you stay consistent.
-
-The problem I found with this strategy is that you'll be needing multiple physical calendars if you want to become consistent at multiple tasks.
-And that is going to make things messy. That is the reason I made this app.
-
-No need to manage multiple physical calendars, your streaks will be saved forever on my app,
-no need to count your current or longest streak manually, also you can mark the dates from anywhere, anytime.
-
-I also added a little pop and draw animation with a soft pop sound when you place an X. The fire icon also has animation.
-There is also a ding sound when you break your own longest streak with a pop animation on trophy icon.
-
-I decided to keep things subtle because I wanted my app to be simple not flashy.
-
-##### What the files do?:
-
-app.py:
-This is the main Flask application file. It handles routing, user authentication,
-database operations, task creation, editing, deleting, streak calculations,
-and rendering templates. All the things a backend do.
-
-templates/:
-This folder contains all HTML templates used in the application. Currently these templates are:
-about.html, index.html, layout.html, login.html, profile.html, register.html, and task.html
-I'm using layout.html as the boilerplate code for html files using Jinja.
-
-static/:
-This folder contains CSS, JavaScript, sound effects, and icons used by the app.
-
-style.css:
-Contains the main styling of the application including the dark theme,
-animations, responsive layout, navbar styling, task cards, and calendar design.
-
-script.js:
-Handles frontend interactivity such as animations, swipe gestures,
-calendar interactions, sound effects, editing tasks, and UI updates.
-
-helpers.py:
-Contains helper functions used in the app.py, because I wanted to keep app.py clean.
-
-xtreak.db:
-SQLite database file used to store users, tasks, streak data,
-custom sorting preferences, and other information.
