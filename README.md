@@ -1,6 +1,7 @@
 # Xtreak
 #### Video Demo:  https://youtu.be/mx_gTy3m03U
 ### Description:
+
 ##### What is Xtreak?:
 
 Xtreak is a simple productivity app that helps you track your tasks
@@ -16,6 +17,7 @@ give each task a title and an optional description.
 When you complete a task, open its page and click on the current date
 to mark it with an X. You can view both your current streak and longest streak for each
 task on the task page and homepage.
+
 
 ##### How it works?:
 
@@ -47,6 +49,7 @@ Once you click on a date that is not in the future, a bright red X will be place
 By clicking again, you can remove that X.
 
 That is all about the main functionality. But there are some other features I added.
+
 
 ##### Other features:
 
