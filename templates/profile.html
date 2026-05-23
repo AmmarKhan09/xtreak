@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Account</h5>
+                    <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    Are you sure you want to delete your account? This cannot be undone.
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary my-btn-1" data-bs-dismiss="modal">Cancel</button>
+
+                    <form method="post" action="/delete-account">
+                        <button class="btn btn-primary my-btn-1 delete-btn">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-container">
+        <form id="edit_form" class="randl-form" method="post" action="/profile">
+            <h2>Profile</h2>
+
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input autocomplete="off" class="form-control my-form-1 my-form-2" type="text" name="name" id="edit_name" value="{{ user.name }}" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input autocomplete="off" class="form-control my-form-1 my-form-2" type="text" name="username" id="edit_username" value="{{ user.username }}" readonly>
+            </div>
+
+            <div class="mb-3 password-wrapper profile-password-wrapper">
+                <label class="form-label">Current Password</label>
+
+                <input autocomplete="off" id="current_password" class="form-control my-form-1 my-form-2" type="password" name="current_password" placeholder="Required to save changes" readonly>
+
+                <span class="password_toggle profile_toggle" data-target="current_password">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc" class="bi bi-eye-fill eye-open" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                    </svg>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc" class="bi bi-eye-slash-fill eye-closed" viewBox="0 0 16 16">
+                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z"/>
+                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z"/>
+                    </svg>
+                </span>
+            </div>
+
+            <div class="mb-3 password-wrapper profile-password-wrapper">
+                <label class="form-label">New Password</label>
+
+                <input autocomplete="off" id="new_password" class="form-control my-form-1 my-form-2" type="password" name="new_password" placeholder="Leave blank to keep same" readonly>
+
+                <span class="password_toggle profile_toggle" data-target="new_password">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc" class="bi bi-eye-fill eye-open" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                    </svg>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc" class="bi bi-eye-slash-fill eye-closed" viewBox="0 0 16 16">
+                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z"/>
+                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z"/>
+                    </svg>
+                </span>
+            </div>
+
+            <span class="error"></span>
+
+            <div class="edit-button">
+            <button type="button" id="editBtn" class="btn btn-primary my-btn-1">Edit</button>
+            </div>
+
+            <div class="edit-actions">
+            <button type="submit" id="saveBtn" class="btn btn-primary my-btn-1">Save</button>
+            <button type="button" id="cancelBtn" class="btn btn-primary my-btn-1">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="danger-zone">
+        <form method="get" action="/logout">
+            <button type="submit" class="btn btn-primary my-btn-1">Logout</button>
+        </form>
+        <button class="btn btn-primary my-btn-1 delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Account</button>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Xtreak: {% block title %}{% endblock %}</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+        <script src=" https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js "></script>
+
+        <script src=" https://cdn.jsdelivr.net/npm/sortablejs@1.15.7/Sortable.min.js "></script>
+
+        <link rel="icon" href="{{ url_for('static', filename='icon.ico') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=2">
+    </head>
+
+    <body data-page="{{ page }}">
+        <nav class="navbar">
+
+            <!-- Back button -->
+
+            {% if not is_index_page and not is_auth_page %}
+                <a href="/" class="nav-link back-btn">
+                    <i class="bi bi-caret-left" class="nav-icon"></i>
+                </a>
+            {% else %}
+                <a href="/" class="nav-link">
+                    <img src="/static/icon-200x200.png" class="nav-icon">
+                </a>
+            {% endif %}
+
+            <!-- Title -->
+            
+            {% if session["user_id"] and is_task_page %}
+                <p class="nav-task-title" id="task-title" data-id="{{ task.id }}" onclick="editTitle()">{{ task.task_name }}</p>
+
+                <input 
+                    id="title-input" 
+                    type="text" 
+                    value="{{ task.task_name }}" 
+                    style="display:none;"
+                    onkeydown="handleEnter(event)"
+                    onblur="saveTitle()"
+                    maxlength="100"/>
+                
+                <span id="title-error" class="error"></span>
+            {% elif not session["user_id"] or page == "about" %}
+                <a class="nav-title" href="/">Xtreak</a>
+            {% elif session["user_id"] and is_index_page %}
+                <a class="nav-title" href="/">{{ session["name"] }}'s Streaks</a>
+            {% endif %}
+
+            <!-- Menu -->
+
+            <div class="nav-menu">
+                <svg id="menuBtn" class="menu-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="5" r="2"/>
+                    <circle cx="12" cy="12" r="2"/>
+                    <circle cx="12" cy="19" r="2"/>
+                </svg>
+
+                {% if session["user_id"] %}
+                    <div class="dropdown" id="dropdown">
+                        {% if is_task_page %}
+                        <button type="button" class="dropdown-link" data-bs-toggle="modal" data-bs-target="#deleteTaskModal">Delete Task</button>
+                        {% endif %}
+                        {% if is_index_page and tasks|length > 0 %}
+                        <div class="sort-wrapper">
+                            <button type="button" id="sortBtn">Sort</button>
+
+                            <div class="dropdown" id="sortDropdown" data-sort="{{ sort }}">
+                                <button type="button" data-sort="date_asc">Date ↓</button>
+                                <button type="button" data-sort="date_desc">Date ↑</button>
+                                <button type="button" data-sort="name_asc">Name A–Z</button>
+                                <button type="button" data-sort="name_desc">Name Z–A</button>
+                                <button type="button" data-sort="custom">Custom</button>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <a href="/profile">Profile</a>
+                        {% if page != "about" %}
+                        <a href="/about">About</a>
+                        {% endif %}
+                        {% if is_index_page or is_profile_page %}
+                        <a href="/logout">Logout</a>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="dropdown" id="dropdown">
+                        <a href="/login">Login</a>
+                        <a href="/register">Register</a>
+                        {% if page != "about" %}
+                        <a href="/about">About</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+        <script src="/static/script.js"></script>
+    </body>
+</html>
