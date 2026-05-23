@@ -1,5 +1,4 @@
 # Xtreak
-#### Video Demo:  https://youtu.be/mx_gTy3m03U
 ### Description:
 
 ##### What is Xtreak?:
