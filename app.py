@@ -4,7 +4,7 @@ import re
 import json
 from datetime import datetime, timedelta
 from flask import Flask, jsonify, render_template, request, redirect, session, url_for
-from database import db, User, Task, StreakLog
+from database import db, User, Task, StreakLog, Config
 from sqlalchemy.sql import func
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -12,11 +12,17 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required, calculate_streaks
 
 app = Flask(__name__)
+app.config.from_object(Config)
 app.secret_key = os.urandom(51)
 
 app.permanent_session_lifetime = timedelta(days=3650)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:xtreak191db@localhost/postgres"
+uri = os.getenv("DATABASE_URL")
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = uri
+
 db.init_app(app)
 
 with app.app_context():
