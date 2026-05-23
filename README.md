@@ -1,7 +1,7 @@
 # Xtreak
 ### Description:
 
-##### What is Xtreak?:
+#### What is Xtreak?:
 
 Xtreak is a simple productivity app that helps you track your tasks
 and their associated streaks. Each task gets its own calendar where
@@ -18,7 +18,7 @@ to mark it with an X. You can view both your current streak and longest streak f
 task on the task page and homepage.
 
 
-##### How it works?:
+#### How it works?:
 
 You can login or register on Xtreak. To register, you'll have to enter your name, username, and password.
 Once you're in the homepage, you'll have no tasks initially.
@@ -50,7 +50,7 @@ By clicking again, you can remove that X.
 That is all about the main functionality. But there are some other features I added.
 
 
-##### Other features:
+#### Other features:
 
 I added some basic features on auth pages, such as eye icon to show/hide the password, remember me button.
 On the navbar, I added a menu where you can see some options such as about page, logout option, profile page, sort option.
